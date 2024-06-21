@@ -30,7 +30,7 @@ public class ProducerConsumerBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkVirtualThreads() throws InterruptedException {
-        ProducerConsumer.runProducerConsumer(virtualThreadExecutor, 30, 100, 150);
+        ProducerConsumer.runProducerConsumer(virtualThreadExecutor, 30, 100, 299);
     }
 
     @Benchmark
@@ -39,6 +39,6 @@ public class ProducerConsumerBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkPlatformThreads() throws InterruptedException {
-        ProducerConsumer.runProducerConsumer(platformThreadExecutor, 30, 100, 150);
+        ProducerConsumer.runProducerConsumer(platformThreadExecutor, 30, 100, 299);
     }
 }

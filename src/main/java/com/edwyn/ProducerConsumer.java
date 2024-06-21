@@ -24,12 +24,6 @@ public class ProducerConsumer {
     public static void runProducerConsumer(ExecutorService executor, int duration, int productionTime, int consumptionTime) throws InterruptedException {
         BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(10);
 
-        // Pré-remplir la queue avec quelques éléments
-        for (int i = 0; i < 3; i++) {
-            item++;
-            queue.put(i);
-        }
-
         // Lancement du producteur
         executor.submit(() -> {
             try {
