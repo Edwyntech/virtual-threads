@@ -1,4 +1,4 @@
-package com.edwyn;
+package com.edwyn.threads;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +28,7 @@ public class ConcurrentCallVirtualThreads {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         return "Data from DB";
     }
@@ -38,6 +39,7 @@ public class ConcurrentCallVirtualThreads {
             TimeUnit.SECONDS.sleep(3);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         return "Data from API";
     }
@@ -48,6 +50,7 @@ public class ConcurrentCallVirtualThreads {
             TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         return "Data from File System";
     }

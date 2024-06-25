@@ -1,5 +1,6 @@
 package com.edwyn;
 
+import com.edwyn.threads.ConcurrentCallVirtualThreads;
 import org.openjdk.jmh.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,9 +41,9 @@ public class ConcurrentCallVirtualThreadsBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkAPiVirtualThreads() throws InterruptedException, ExecutionException {
-        logCpuUsage("Virtual Threads");
+        logCpuUsage("Before Virtual Threads");
         ConcurrentCallVirtualThreads.runConcurrentApiTasks(virtualThreadExecutor);
-        logCpuUsage("Virtual Threads");
+        logCpuUsage("After Virtual Threads");
     }
 
     @Benchmark
@@ -51,9 +52,9 @@ public class ConcurrentCallVirtualThreadsBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkAPiPlatformThreads() throws InterruptedException, ExecutionException {
-        logCpuUsage("Platform Threads");
+        logCpuUsage("Before Platform Threads");
         ConcurrentCallVirtualThreads.runConcurrentApiTasks(platformThreadExecutor);
-        logCpuUsage("Platform Threads");
+        logCpuUsage("After Platform Threads");
     }
 
     @Benchmark

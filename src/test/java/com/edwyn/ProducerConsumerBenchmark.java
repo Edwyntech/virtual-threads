@@ -1,44 +1,45 @@
 package com.edwyn;
 
+import com.edwyn.threads.CPUProducerConsumer;
 import org.openjdk.jmh.annotations.*;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 public class ProducerConsumerBenchmark {
 
-    private BlockingQueue<Integer> queue;
     private ExecutorService virtualThreadExecutor;
     private ExecutorService platformThreadExecutor;
 
-    @Setup(Level.Trial)
+    @Setup(Level.Invocation)
     public void setup() {
-        queue = new LinkedBlockingQueue<>(10);
         virtualThreadExecutor = Executors.newThreadPerTaskExecutor(Thread.ofVirtual().name("virtual", 0).factory());
         platformThreadExecutor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
-    @TearDown(Level.Trial)
+    @TearDown(Level.Invocation)
     public void tearDown() {
-        virtualThreadExecutor.shutdown();
-        platformThreadExecutor.shutdown();
+        virtualThreadExecutor.shutdownNow();
+        platformThreadExecutor.shutdownNow();
     }
 
     @Benchmark
-    @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 5, time = 30, timeUnit = TimeUnit.SECONDS)
+    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(iterations = 3, time = 30, timeUnit = TimeUnit.SECONDS)
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkVirtualThreads() throws InterruptedException {
-        ProducerConsumer.runProducerConsumer(virtualThreadExecutor, 30, 100, 299);
+        CPUProducerConsumer.runProducerConsumer(virtualThreadExecutor, 60, 250, 250);
     }
 
     @Benchmark
-    @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
-    @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.MINUTES)
+    @Warmup(iterations = 1, time = 1, timeUnit = TimeUnit.SECONDS)
+    @Measurement(iterations = 3, time = 1, timeUnit = TimeUnit.MINUTES)
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.MILLISECONDS)
     public void benchmarkPlatformThreads() throws InterruptedException {
-        ProducerConsumer.runProducerConsumer(platformThreadExecutor, 30, 100, 299);
+        CPUProducerConsumer.runProducerConsumer(platformThreadExecutor, 60, 250, 250);
     }
 }

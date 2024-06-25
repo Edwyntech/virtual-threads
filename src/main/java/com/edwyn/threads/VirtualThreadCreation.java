@@ -1,13 +1,13 @@
-package com.edwyn;
+package com.edwyn.threads;
 
 import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// 1
+public class VirtualThreadCreation {
 
-public class VirtualThreadDemo {
-
-    static final Logger logger = LoggerFactory.getLogger(VirtualThreadDemo.class);
+    static final Logger logger = LoggerFactory.getLogger(VirtualThreadCreation.class);
 
     @SneakyThrows
     public static void main(String[] args) {

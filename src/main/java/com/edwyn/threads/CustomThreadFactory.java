@@ -1,4 +1,4 @@
-package com.edwyn;
+package com.edwyn.threads;
 
 public class CustomThreadFactory {
 
