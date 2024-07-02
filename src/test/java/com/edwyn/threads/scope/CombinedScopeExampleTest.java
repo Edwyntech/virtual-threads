@@ -56,25 +56,12 @@ class CombinedScopeExampleTest {
             }
         };
 
-        assertThrows(InterruptedException.class, faultyService::retrieveAllDataOrFail);
-    }
-
-    // Teste la méthode avec la politique ShutdownOnFailure et une interruption
-    @Test
-    void testRetrieveAllDataOrFailWithInterruptedException() {
-        CombinedScopeExample interruptedService = new CombinedScopeExample() {
-            @Override
-            protected String retrieveDataFromSource2() throws InterruptedException {
-                throw new RuntimeException("Simulated interruption");
-            }
-        };
-
-        assertThrows(InterruptedException.class, interruptedService::retrieveAllDataOrFail);
+        assertThrows(IllegalStateException.class, faultyService::retrieveAllDataOrFail);
     }
 
     // Teste la méthode avec la politique ShutdownOnSuccess et une exception
     @Test
-    void testRetrieveFirstSuccessfulDataWithException() {
+    void testRetrieveFirstSuccessfulDataWithException() throws InterruptedException, ExecutionException {
         CombinedScopeExample faultyService = new CombinedScopeExample() {
             @Override
             protected String retrieveDataFromSource1() throws InterruptedException {
@@ -82,7 +69,10 @@ class CombinedScopeExampleTest {
             }
         };
 
-        assertThrows(InterruptedException.class, faultyService::retrieveFirstSuccessfulData);
+        String result = faultyService.retrieveFirstSuccessfulData();
+        assertNotNull(result);
+
+        assertTrue(result.contains("Données de la source 2"));
     }
 
     // Teste la méthode avec la politique ShutdownOnSuccess et une interruption

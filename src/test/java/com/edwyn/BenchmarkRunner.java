@@ -1,6 +1,5 @@
 package com.edwyn;
 
-import org.openjdk.jmh.profile.GCProfiler;
 import org.openjdk.jmh.profile.StackProfiler;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.options.Options;
@@ -12,7 +11,7 @@ public class BenchmarkRunner {
         Options opt = new OptionsBuilder()
                 .include(ConcurrentCallVirtualThreadsBenchmark.class.getSimpleName())
                 .forks(1)
-                //.addProfiler(StackProfiler.class) // Add CPU profiling
+                .addProfiler(StackProfiler.class) // Add CPU profiling
                 //.addProfiler(GCProfiler.class) // Add normalized CPU profiling
                 .build();
 

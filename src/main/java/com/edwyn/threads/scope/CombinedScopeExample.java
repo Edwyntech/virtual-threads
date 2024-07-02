@@ -1,7 +1,5 @@
 package com.edwyn.threads.scope;
 
-import lombok.SneakyThrows;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.StructuredTaskScope;
 import java.util.function.Supplier;

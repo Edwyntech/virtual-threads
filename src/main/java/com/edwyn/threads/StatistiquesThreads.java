@@ -15,7 +15,7 @@ public class StatistiquesThreads {
         Set<String> pThreadsNames = ConcurrentHashMap.newKeySet();
 
         // Création d'une liste de milliers threads non démarrés
-        List<Thread> threads = IntStream.range(0, 10000).mapToObj(i -> Thread.ofPlatform().unstarted(() -> {
+        List<Thread> threads = IntStream.range(0, 10_000_000).mapToObj(i -> Thread.ofPlatform().unstarted(() -> {
             // Lecture et stockage du nom du pool
             String poolName = readPoolName();
             poolNames.add(poolName);

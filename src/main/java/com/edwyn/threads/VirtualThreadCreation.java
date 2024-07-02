@@ -15,10 +15,11 @@ public class VirtualThreadCreation {
         Runnable platformTask = () -> {
             try {
                 Thread.sleep(1000);
+                logger.info("Platform thread executed: {}", Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            logger.info("Platform thread executed: " + Thread.currentThread().getName());
+
         };
 
         Thread platformThread = CustomThreadFactory.platformThread("PlatformThread-1", platformTask);
@@ -28,7 +29,7 @@ public class VirtualThreadCreation {
         Runnable virtualTask = () -> {
             try {
                 Thread.sleep(1000);
-                logger.info("Virtual thread executed: " + Thread.currentThread().getName());
+                logger.info("Virtual thread executed: {} ",Thread.currentThread().getName());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
